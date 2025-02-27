@@ -1,0 +1,6 @@
+@kotl_HostAddress = http://localhost:5081
+
+GET {{kotl_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
