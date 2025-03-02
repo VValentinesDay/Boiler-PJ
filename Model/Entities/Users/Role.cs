@@ -2,12 +2,12 @@
 {
     public enum Role
     {
-        Admin,
-        Worker,
-        Client
-        //Admin = 0,
-        //Worker = 1,
-        //Client = 2
+        //Admin,
+        //Worker,
+        //Client
+        Admin = 0,
+        Worker = 1,
+        Client = 2
         
     }
 }

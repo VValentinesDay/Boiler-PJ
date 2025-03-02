@@ -1,9 +1,11 @@
 using Domain.Repositories;
+using Domain.Repositories.IUserRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Model;
 using Model.Repository;
+using Model.Repository.AutontificationRepository;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -34,7 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
 
 static RSA GetPublicKey() 
     {
-        var rsaReadFile = File.ReadAllText("/RSA/public_key.pem");
+        var rsaReadFile = File.ReadAllText("RSA/public_key.pem");
         var rsa = RSA.Create();
         rsa.ImportFromPem(rsaReadFile);
         return rsa;
@@ -46,6 +48,8 @@ builder.Services.AddScoped<DbContext>();
 builder.Services.AddScoped<IBoilerRepository, BoilerRepostory>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+builder.Services.AddScoped<IUserAutoantificationService, UserAutoantificationService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddMemoryCache();
 
