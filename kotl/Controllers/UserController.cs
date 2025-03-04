@@ -3,6 +3,7 @@ using Domain.Repositories.IUserRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Entities.Users;
+using System.Security.Claims;
 
 namespace kotl.Controllers
 {
@@ -36,6 +37,8 @@ namespace kotl.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(string name) 
         {
+
+
             _userRepository.DeleteUser(name);
             return Ok(name);
         }
@@ -44,6 +47,23 @@ namespace kotl.Controllers
         public ActionResult<Role> CheckUser(LoginDTO login) 
         {
             return Ok(_userRepository.CheckUser(login));
+        }
+
+
+        private UserDTO GetCurrentUser() 
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null) 
+            {
+                var userClaims = identity.Claims;
+                return new UserDTO
+                {
+                    Name = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value,
+                    Role = (UserRoleDTO)Enum.Parse(typeof(UserRoleDTO),
+                            userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value)
+                };
+            }
+            return null;
         }
     }
 }
