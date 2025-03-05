@@ -3,6 +3,7 @@ using Domain.Repositories.IUserRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Model;
 using Model.Repository;
 using Model.Repository.AutontificationRepository;
@@ -55,7 +56,45 @@ builder.Services.AddMemoryCache();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(opt => 
+{
+    opt.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        // токен передаётся в закоголовке
+        In = ParameterLocation.Header,
+        Description = "Enter token",
+        // имя заголовка в котором будет передаваться токен - "Autorization"
+        Name = "Autorization",
+        // тип схемы безопасности 
+        Type = SecuritySchemeType.Http,
+        // Формат токена
+        BearerFormat = "Token",
+        Scheme = "bearer"
+    });
+    // все запросы должны использовать схему безопасности Bearer
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+}
+
+
+
+
+);
+
+
 
 var app = builder.Build();
 

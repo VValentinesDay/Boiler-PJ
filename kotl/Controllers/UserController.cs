@@ -34,10 +34,16 @@ namespace kotl.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "0" )]
+        //[Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(string name) 
         {
 
+            var currentUser = GetCurrentUser();
+            if (currentUser.Role.ToString() != "Admin") 
+            {
+                throw new Exception("Вы не являетесь администратором");
+            }
 
             _userRepository.DeleteUser(name);
             return Ok(name);

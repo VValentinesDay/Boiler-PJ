@@ -69,9 +69,11 @@ namespace kotl.Controllers
             // ключ извлекается из поля токена JWT из Appsettings. Он нужен для подписи токенов
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             // объект принимает ключ и алгоритм для шифрования - используется для подписи токена
+            // зарегистрированные полномочия
             var tokenMeneger = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             // сlaims - данные, которые содержат токен: имя пользователя и его роль
+            // здесь задаётся соответсвие модели ДТО и типы утверждений/Claims
             var claims = new[]
             {
                  new Claim(ClaimTypes.NameIdentifier, user.Name),
