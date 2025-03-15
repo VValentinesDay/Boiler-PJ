@@ -25,7 +25,7 @@ namespace Model.Repository.AutontificationRepository
             }
             
 
-            var user = new UserEntity() { Id = userDTO.Id, Name = userDTO.Name };
+            var user = new UserEntity() { Id = userDTO.Id, Name = userDTO.Name, RoleID = (Role)userDTO.Role};
             _context.User.Add(user);
 
             // метод под пароль - то что вносит пользователь + соль

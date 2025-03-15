@@ -1,0 +1,12 @@
+E:\VISUAL STUDIO\Projects\kotl\Domain\bin\Debug\net8.0\kotl.Domain.deps.json
+E:\VISUAL STUDIO\Projects\kotl\Domain\bin\Debug\net8.0\kotl.Domain.dll
+E:\VISUAL STUDIO\Projects\kotl\Domain\bin\Debug\net8.0\kotl.Domain.pdb
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.AssemblyInfoInputs.cache
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.AssemblyInfo.cs
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.csproj.CoreCompileInputs.cache
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.sourcelink.json
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.dll
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\refint\kotl.Domain.dll
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\kotl.Domain.pdb
+E:\VISUAL STUDIO\Projects\kotl\Domain\obj\Debug\net8.0\ref\kotl.Domain.dll

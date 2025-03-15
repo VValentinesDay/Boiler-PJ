@@ -26,7 +26,7 @@ namespace kotl.Controllers
             return Ok(users);
         }
 
-        [HttpPost("Create")]
+        [HttpPost("CreateUser")]
         public IActionResult CreateUser(UserDTO user) 
         {
             _userRepository.AddUser(user);
@@ -34,12 +34,15 @@ namespace kotl.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "0" )]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Worker")]
         public IActionResult DeleteUser(string name) 
         {
 
             var currentUser = GetCurrentUser();
+            if ( currentUser == null) 
+            {
+                throw new NullReferenceException();
+            }
             if (currentUser.Role.ToString() != "Admin") 
             {
                 throw new Exception("Вы не являетесь администратором");
@@ -49,7 +52,7 @@ namespace kotl.Controllers
             return Ok(name);
         }
 
-        [HttpPost]
+        [HttpPost("CheckUser")]
         public ActionResult<Role> CheckUser(LoginDTO login) 
         {
             return Ok(_userRepository.CheckUser(login));

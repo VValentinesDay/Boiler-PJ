@@ -1,6 +1,6 @@
-﻿using Domain.DTO;
-using Domain.DTO.UserDTO;
+﻿using Domain.DTO.UserDTO;
 using Domain.Repositories.IUserRepository;
+using kotl.RSAkeys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -25,20 +25,6 @@ namespace kotl.Controllers
             _userAutoantification = userAutoantification;
             _configuration = configuration;
         }
-
-        //[HttpPost]
-        //public ActionResult<UserDTO> Autontification(LoginDTO login) 
-        //{
-        //   _userAutoantification.Autoantification(login);
-        //    return Ok();
-        
-        //}
-
-
-
-
-
-
 
         [AllowAnonymous]
         [HttpPost]
@@ -66,11 +52,16 @@ namespace kotl.Controllers
         // метода GetToken. Необходим private
         private string GenToken(UserDTO user)
         {
+            /*
             // ключ извлекается из поля токена JWT из Appsettings. Он нужен для подписи токенов
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             // объект принимает ключ и алгоритм для шифрования - используется для подписи токена
             // зарегистрированные полномочия
             var tokenMeneger = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            */
+
+            var key = new RsaSecurityKey(keyGetterRSA.GetPrivateKey());
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.RsaSha256Signature);
 
             // сlaims - данные, которые содержат токен: имя пользователя и его роль
             // здесь задаётся соответсвие модели ДТО и типы утверждений/Claims
@@ -78,6 +69,7 @@ namespace kotl.Controllers
             {
                  new Claim(ClaimTypes.NameIdentifier, user.Name),
                  new Claim(ClaimTypes.Role, user.Role.ToString())
+                 
              };
 
             // создание объекта токена 
@@ -86,7 +78,7 @@ namespace kotl.Controllers
                 _configuration["Jwt:Audience"],// кому предназначен токен
                 claims,
                 expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: tokenMeneger);
+                signingCredentials: credentials);
             // получение строки токена
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

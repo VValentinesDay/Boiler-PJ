@@ -1,5 +1,6 @@
 using Domain.Repositories;
 using Domain.Repositories.IUserRepository;
+using kotl.RSAkeys;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -31,24 +32,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         // явное указание использования RSA-ключа
-        IssuerSigningKey = new RsaSecurityKey(GetPublicKey())
+        IssuerSigningKey = new RsaSecurityKey(keyGetterRSA.GetPublicKey())
     }
     );
 
-static RSA GetPublicKey() 
-    {
-        var rsaReadFile = File.ReadAllText("RSA/public_key.pem");
-        var rsa = RSA.Create();
-        rsa.ImportFromPem(rsaReadFile);
-        return rsa;
-    }
-
-
-
 builder.Services.AddScoped<DbContext>();
+
 builder.Services.AddScoped<IBoilerRepository, BoilerRepostory>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+
 builder.Services.AddScoped<IUserAutoantificationService, UserAutoantificationService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
@@ -88,10 +81,6 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 }
-
-
-
-
 );
 
 

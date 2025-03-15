@@ -1,0 +1,6 @@
+E:\VISUAL STUDIO\Projects\kotl\Model\obj\Debug\net8.0\kotl.Model.csproj.AssemblyReference.cache
+E:\VISUAL STUDIO\Projects\kotl\Model\obj\Debug\net8.0\kotl.Model.GeneratedMSBuildEditorConfig.editorconfig
+E:\VISUAL STUDIO\Projects\kotl\Model\obj\Debug\net8.0\kotl.Model.AssemblyInfoInputs.cache
+E:\VISUAL STUDIO\Projects\kotl\Model\obj\Debug\net8.0\kotl.Model.AssemblyInfo.cs
+E:\VISUAL STUDIO\Projects\kotl\Model\obj\Debug\net8.0\kotl.Model.csproj.CoreCompileInputs.cache
+E:\VISUAL STUDIO\Projects\kotl\Model\obj\Debug\net8.0\kotl.Model.sourcelink.json
